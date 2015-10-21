@@ -1,11 +1,12 @@
 package com.qly.inject;
 
 import com.google.inject.name.Names;
+import com.qly.dao.IGoodsDao;
 import com.qly.dao.IUserDao;
-import com.qly.dao.impl.mybatis.UserDaoImpl;
+import com.qly.dao.IVenderDao;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
-import org.mybatis.guice.datasource.builtin.UnpooledDataSourceProvider;
+import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
 
 import java.util.Properties;
 
@@ -22,12 +23,14 @@ public class BindMybatisModule extends MyBatisModule {
         props.setProperty("JDBC.password", "Abcd1234");
 
         environmentId("development");
-        bindDataSourceProviderType(UnpooledDataSourceProvider.class);
+        //bindDataSourceProviderType(UnpooledDataSourceProvider.class);
+        bindDataSourceProviderType(PooledDataSourceProvider.class);
         bindTransactionFactoryType(JdbcTransactionFactory.class);
         Names.bindProperties(this.binder(), props);
         addMapperClasses("com.qly.dao.impl.mybatis.mapper");
-        addSimpleAlias(com.qly.dao.impl.mybatis.UserDaoImpl.class);
-        bind(IUserDao.class).to(UserDaoImpl.class);
+        bind(IUserDao.class).to(com.qly.dao.impl.mybatis.UserDaoImpl.class);
+        bind(IVenderDao.class).to(com.qly.dao.impl.mybatis.VenderDaoImpl.class);
+        bind(IGoodsDao.class).to(com.qly.dao.impl.mybatis.GoodsDaoImpl.class);
 
     }
 }

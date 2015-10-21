@@ -63,7 +63,7 @@ public class MainServer {
         String hostname = configs.getProperty("server.listeningAddress");
         int apiPort = Integer.valueOf(configs.getProperty("server.apiPort"));
         InetSocketAddress addr = new InetSocketAddress(hostname, apiPort);
-        dataServer = initApiServer(addr);
+        dataServer = initDataServer(addr);
         //metricsServer = initMetricsServer(addr);
     }
 
@@ -169,7 +169,7 @@ public class MainServer {
         }
     }
 
-    public static Server initApiServer(InetSocketAddress addr) throws Exception {
+    public static Server initDataServer(InetSocketAddress addr) throws Exception {
         Server server = new Server(addr);
         Boolean ssl = Boolean.valueOf(configProperties.getProperty("server.ssl"));
 
