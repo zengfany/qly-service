@@ -1,4 +1,3 @@
 target/
-*.java
 *.jar
 /.idea
