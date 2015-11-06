@@ -97,7 +97,7 @@ public class MainServer {
     public static void main(String[] args) {
         try {
             FileInputStream configStream = new FileInputStream(System.getProperty(CONFIG_KEY,
-                    "main/java/com/qly/conf/qly-service-config-local.cfg"));
+                    "./conf/qly-service-config-local.cfg"));
             configProperties.load(configStream);
             configStream.close();
             logger = EnvironmentConfigurator.setup(configProperties);
